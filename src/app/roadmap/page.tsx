@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CompletionBadge } from "@/components/lesson/completion-badge";
 
 type Lesson = {
   number: string;
@@ -14,7 +15,7 @@ type Lesson = {
 };
 
 const lessons: Lesson[] = [
-  { number: "01", title: "What is Web3?", slug: "what-is-web3", description: "A new way to organize identity, assets, and shared application state.", duration: "12 min", level: "Foundation", status: "Start here", mentalModel: "A shift in who owns the database, identity, and rules.", prerequisites: [] },
+  { number: "01", title: "What Really Changes from Web2 to Web3?", slug: "what-is-web3", description: "A new way to organize identity, assets, and shared application state.", duration: "18 min", level: "Foundation", status: "Start here", mentalModel: "Platform-controlled state vs shared, verifiable state.", prerequisites: [] },
   { number: "02", title: "Blockchain", slug: "blockchain", description: "How a shared, append-only state machine reaches agreement.", duration: "18 min", level: "Foundation", status: "Core", mentalModel: "A distributed database with consensus built into the write path.", prerequisites: ["01 What is Web3?"] },
   { number: "03", title: "Bitcoin", slug: "bitcoin", description: "Digital scarcity, UTXOs, and the origin of programmable money.", duration: "16 min", level: "Context", status: "Explore", mentalModel: "Cash-like outputs, not rows in an account ledger.", prerequisites: ["02 Blockchain"], branch: "bitcoin" },
   { number: "04", title: "Ethereum", slug: "ethereum", description: "A programmable blockchain and global execution environment.", duration: "20 min", level: "Foundation", status: "Core", mentalModel: "A shared runtime where application state is public and replicated.", prerequisites: ["02 Blockchain"], branch: "ethereum" },
@@ -69,7 +70,7 @@ export default function RoadmapPage() {
 
 function LessonCard({ lesson }: { lesson: Lesson }) {
   return <Link href={`/learn/${lesson.slug}`} className={`roadmap-node ${lesson.status.toLowerCase().replaceAll(" ", "-")} ${lesson.branch ?? ""}`}>
-    <div className="node-top"><span className="node-number">{lesson.number}</span><span className="node-status">{lesson.status}</span></div>
+    <div className="node-top"><span className="node-number">{lesson.number}</span><CompletionBadge slug={lesson.slug} fallback={lesson.status} /></div>
     <h3>{lesson.title}</h3><p>{lesson.description}</p>
     <div className="node-info"><span>{lesson.duration}</span><span>{lesson.level}</span></div>
     <div className="mental-model"><b>WEB2 MENTAL MODEL</b><span>{lesson.mentalModel}</span></div>
